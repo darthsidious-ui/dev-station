@@ -27,8 +27,8 @@ RUN echo "--- Installing Kubernetes, Helm, k9s, and Terraform ---" && \
     # Install Terraform (OpenTofu approach)
     curl -L -s https://github.com/opentofu/opentofu/releases/latest/download/tofu_1.8.8_linux_amd64.tar.gz | tar xz -C /usr/local/bin tofu && \
     ln -s /usr/local/bin/tofu /usr/local/bin/terraform
-    # Calibrating eza for visual scans (ls) and bat for data decryption (cat)
-    echo 'alias ls="eza --icons"' >> /etc/zshrc && \
+# Calibrating eza for visual scans (ls) and bat for data decryption (cat)
+RUN echo 'alias ls="eza --icons"' >> /etc/zshrc && \
     echo 'alias cat="bat"' >> /etc/zshrc
 
 # 3. Establishing the Oh My Zsh Framework
