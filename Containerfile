@@ -10,23 +10,19 @@ LABEL description="Tactical DevOps Station - Imperial Fleet Command Pod"
 # Installing core Imperial utilities available in standard repositories
 RUN dnf install -y \
     git zsh curl wget tmux nmap-ncat \
-    fzf ripgrep bat eza podman-remote \
-    ansible-core \
+	kubectl k9s helm kubernetes-client \
+    fzf ripgrep bat podman-remote \
+    ansible-core dnf-plugins-core \
     && dnf clean all
 
 # 2. Tactical Gear Acquisition (Binaries)
 # Downloading advanced weaponry directly from the manufacturers
-RUN echo "--- Installing Kubernetes, Helm, k9s, and Terraform ---" && \
-    # Install kubectl
-    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
-    install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && \
-    # Install Helm
-    curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash && \
-    # Install k9s
-    curl -L -s https://github.com/derailed/k9s/releases/latest/download/k9s_Linux_amd64.tar.gz | tar xz -C /usr/local/bin k9s && \
-    # Install Terraform (OpenTofu approach)
-    curl -L -s https://github.com/opentofu/opentofu/releases/latest/download/tofu_1.8.8_linux_amd64.tar.gz | tar xz -C /usr/local/bin tofu && \
-    ln -s /usr/local/bin/tofu /usr/local/bin/terraform
+RUN echo "--- Installing Terraform repo and manual install eza ---" && \
+    printf "[hashicorp]\nname=HashiCorp Stable - \$basearch\nbaseurl=https://rpm.releases.hashicorp.com/fedora/\$releasever/\$basearch/stable\nenabled=1\ngpgcheck=1\ngpgkey=https://rpm.releases.hashicorp.com/gpg\n" > /etc/yum.repos.d/hashicorp.repo && \
+    dnf install -y terraform
+RUN curl -L -s https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz | tar xz -C /usr/local/bin && \
+    chmod +x /usr/local/bin/eza
+
 # Calibrating eza for visual scans (ls) and bat for data decryption (cat)
 RUN echo 'alias ls="eza --icons"' >> /etc/zshrc && \
     echo 'alias cat="bat"' >> /etc/zshrc
