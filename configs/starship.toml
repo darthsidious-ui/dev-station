@@ -1,0 +1,53 @@
+# --- Imperial Command Display Configuration ---
+# Aesthetics: Sith Red, Death Star Grey, and Deep Space Purple
+
+format = """
+[](#45475a)\
+[󱓏 Imperial Pod](bg:#45475a fg:#f38ba8)\
+[](fg:#45475a bg:#313244)\
+$directory\
+[](fg:#313244 bg:#a6e3a1)\
+$git_branch\
+$git_status\
+[](fg:#a6e3a1 bg:#89b4fa)\
+$kubernetes\
+[](fg:#89b4fa bg:#fab387)\
+$terraform\
+[](fg:#fab387 bg:#1e1e2e)\
+[ ](fg:#1e1e2e)\
+\n$character
+"""
+
+[directory]
+style = "bg:#313244 fg:#cdd6f4"
+format = "[ 📂 $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[git_branch]
+symbol = " "
+style = "bg:#a6e3a1 fg:#11111b"
+format = '[ $symbol$branch ]($style)'
+
+[git_status]
+style = "bg:#a6e3a1 fg:#11111b"
+format = '[$all_status$ahead_behind ]($style)'
+
+[kubernetes]
+disabled = false
+symbol = "☸ "
+style = "bg:#89b4fa fg:#11111b"
+format = '[ $symbol$context ]($style)'
+
+[terraform]
+symbol = "󱁢 "
+style = "bg:#fab387 fg:#11111b"
+format = '[ $symbol$version ]($style)'
+
+[character]
+success_symbol = "[⚡ Darth Sidious >](bold red)"
+error_symbol = "[💥 Dark Side Force >](bold orange)"
+
+[hostname]
+ssh_only = false
+format =  "[💻 $hostname]($style) "
