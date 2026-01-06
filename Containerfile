@@ -6,18 +6,29 @@ FROM fedora:43
 LABEL maintainer="darthsidious-ui"
 LABEL description="Tactical DevOps Station - Imperial Fleet Command Pod"
 
-# 1. Deployment of System Arsenal and Tactical Tools
-# Equipping the station with essential communication and orchestration gear
+# 1. Deployment of System Arsenal
+# Installing core Imperial utilities available in standard repositories
 RUN dnf install -y \
     git zsh curl wget tmux nmap-ncat \
-    kubernetes-client helm k9s \
-    terraform ansible-core \
-    fzf ripgrep bat eza \
+    fzf ripgrep bat eza podman-remote \
+    ansible-core \
     && dnf clean all
 
-# 2. Interface Enhancements (Modern Substitutes)
-# Calibrating eza for visual scans (ls) and bat for data decryption (cat)
-RUN echo 'alias ls="eza --icons"' >> /etc/zshrc && \
+# 2. Tactical Gear Acquisition (Binaries)
+# Downloading advanced weaponry directly from the manufacturers
+RUN echo "--- Installing Kubernetes, Helm, k9s, and Terraform ---" && \
+    # Install kubectl
+    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
+    install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && \
+    # Install Helm
+    curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash && \
+    # Install k9s
+    curl -L -s https://github.com/derailed/k9s/releases/latest/download/k9s_Linux_amd64.tar.gz | tar xz -C /usr/local/bin k9s && \
+    # Install Terraform (OpenTofu approach)
+    curl -L -s https://github.com/opentofu/opentofu/releases/latest/download/tofu_1.8.8_linux_amd64.tar.gz | tar xz -C /usr/local/bin tofu && \
+    ln -s /usr/local/bin/tofu /usr/local/bin/terraform
+    # Calibrating eza for visual scans (ls) and bat for data decryption (cat)
+    echo 'alias ls="eza --icons"' >> /etc/zshrc && \
     echo 'alias cat="bat"' >> /etc/zshrc
 
 # 3. Establishing the Oh My Zsh Framework
@@ -35,10 +46,6 @@ RUN curl -sS https://starship.rs/install.sh | sh -s -- -y && \
 # 5. Importing Imperial Aesthetics (Dotfiles)
 # Syncing the Starship Holocron from the local repository
 COPY configs/starship.toml /root/.config/starship.toml
-
-# 6. Specialized Fleet Management Tools (Podman-remote)
-# Enabling remote dominance over the UM890Pro sector
-RUN dnf install -y podman-remote
 
 # Setting the command bridge environment
 WORKDIR /root
