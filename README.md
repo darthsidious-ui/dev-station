@@ -13,7 +13,7 @@ In the Empire, we don't believe in manual configuration. This project uses a **F
 
 ### 🛰️ Deployment (Installation)
 To prepare your terminal for the Imperial Command, run the following sequence:
-
+```bash
 curl -sSL [https://raw.githubusercontent.com/darthsidious-ui/dev-station/main/install.sh](https://raw.githubusercontent.com/darthsidious-ui/dev-station/main/install.sh) | bash
 
 🚢 CI/CD Automation
