@@ -11,7 +11,7 @@ LABEL description="Tactical DevOps Station - Imperial Fleet Command Pod"
 RUN dnf install -y \
     git zsh curl wget tmux nmap-ncat \
     kubectl k9s helm kubernetes-client \
-    fzf ripgrep bat podman-remote \
+    fzf ripgrep bat podman \
     ansible-core dnf-plugins-core \
     iputils \
     && dnf clean all
