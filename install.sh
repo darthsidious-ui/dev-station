@@ -45,6 +45,7 @@ ZSHRC="$HOME/.zshrc"
 # UWAGA: Dodano flagi :Z dla SELinux i poprawną ścieżkę do socketu wewnątrz kontenera
 DEV_ALIAS="alias dev='podman run -it --rm --name imperial-pod \
     -v \$HOME/projects:/root/projects:Z \
+    -v \$HOME/projects/.podman-configs/containers.conf:/root/.config/containers/containers.conf:Z \
     -v \$HOME/.ssh:/root/.ssh:ro \
     -v /run/user/\$(id -u)/podman/podman.sock:/run/user/1000/podman/podman.sock:Z \
     ghcr.io/darthsidious-ui/dev-station:latest'"
