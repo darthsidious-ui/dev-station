@@ -10,9 +10,10 @@ LABEL description="Tactical DevOps Station - Imperial Fleet Command Pod"
 # Installing core Imperial utilities available in standard repositories
 RUN dnf install -y \
     git zsh curl wget tmux nmap-ncat \
-	kubectl k9s helm kubernetes-client \
+    kubectl k9s helm kubernetes-client \
     fzf ripgrep bat podman-remote \
     ansible-core dnf-plugins-core \
+    iputils \
     && dnf clean all
 
 # 2. Tactical Gear Acquisition (Binaries)
