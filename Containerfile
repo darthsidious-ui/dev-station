@@ -13,7 +13,7 @@ RUN dnf install -y \
     kubectl k9s helm kubernetes-client \
     fzf ripgrep bat podman \
     ansible-core dnf-plugins-core \
-    iputils \
+    iputils neovim \
     && dnf clean all
 
 # 2. Tactical Gear Acquisition (Binaries)
